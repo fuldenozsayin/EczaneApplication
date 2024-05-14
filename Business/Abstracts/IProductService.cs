@@ -21,6 +21,7 @@ namespace Business.Abstracts
         IResult Add(Product product);
         IResult Update(Product product);
         IResult Delete(int productId);
+        IResult AddTransactionalTest(Product product);
 
 
     }

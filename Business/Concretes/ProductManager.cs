@@ -2,6 +2,8 @@
 using Business.BusinessAspect;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -26,7 +28,8 @@ namespace Business.Concretes
 
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
-        
+        [CacheRemoveAspect("IProductService.Get")]
+
         public IResult Add(Product product)
         {
             IResult result=BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
@@ -47,6 +50,7 @@ namespace Business.Concretes
             return new Result(true, Messages.ProductDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
             
@@ -62,6 +66,8 @@ namespace Business.Concretes
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
+        [CacheAspect]
+        [PerformanceAspect(5)]//Bu metotoun çalışması 5 saniyeyi geçerse beni uyar.
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
@@ -78,6 +84,7 @@ namespace Business.Concretes
         }
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]//bellekte içerisinde get olan tüm keyleri iptal et demek
         public IResult Update(Product product)
         {
     
@@ -115,6 +122,12 @@ namespace Business.Concretes
                 return new ErrorResult(Messages.CategoryLimitExceded);
             }
             return new SuccessResult();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }
