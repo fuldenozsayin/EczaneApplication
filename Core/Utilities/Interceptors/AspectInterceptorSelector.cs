@@ -18,3 +18,5 @@ namespace Core.Utilities.Interceptors
         }
     }
 }
+// Code-First : önce entity sonra veritabanı
+// Db-First : önce veritabanı sonra entity
