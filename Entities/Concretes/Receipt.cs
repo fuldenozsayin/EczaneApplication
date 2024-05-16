@@ -11,10 +11,10 @@ namespace Entities.Concretes
     public class Receipt:IEntity
     {
         public int ReceiptId { get; set; }
-        public int StatusId { get; set; }
+        
 
         public string ReceiptNumber { get; set;}
 
-        public virtual Status Status { get; set; }
+        
     }
 }

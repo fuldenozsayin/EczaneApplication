@@ -15,7 +15,7 @@ namespace DataAccess.Concretes.EntityFramework
 
     //veritabanına bağlantı açmamızı sağlayan classtır.
     //ismindeki "NorthwindContext" contexten etkilenmez. Bunun base sınıfını yani DbContext (entity framework classıdır) implement ederek context sınıfı olduğunu belirtiriz.
-    public class NorthwindContext:DbContext
+    public class EczAppContext:DbContext
     {
         //Bu metot: Projenin hangi veritabanıyla ilişkili olduğunu belirttiğin yer.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,7 +32,12 @@ namespace DataAccess.Concretes.EntityFramework
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-
+        public DbSet<Receipt> Receipts { get; set; }
+        public DbSet<ReceiptDetail> ReceiptDetails { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Courier> Couriers { get; set; }
+        public DbSet<Seller> Sellers { get; set; }
 
     }
 }

@@ -29,8 +29,8 @@ namespace Business.Concretes
                 FirstName = userForRegisterDto.FirstName,
                 LastName = userForRegisterDto.LastName,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Status = true
+                PasswordSalt = passwordSalt
+                
             };
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);

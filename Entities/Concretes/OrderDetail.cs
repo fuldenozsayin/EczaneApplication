@@ -13,10 +13,11 @@ namespace Entities.Concretes
         public int OrderDetailId { get; set; }
         public int OrderId { get; set; }
         public int ProductId { get; set; }
-        public int StatusId { get; set; }
+        public int? CourierId { get; set; }
 
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public virtual Status Status { get; set; }
+        public virtual Courier Courier { get; set; }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concretes;
+using Entities.DTOs;
 
 namespace Business.Abstracts
 {
@@ -7,5 +8,9 @@ namespace Business.Abstracts
     {
         IDataResult<List<Category>> GetAll();
         IDataResult<Category> GetById(int categoryId);
+
+        IResult Add(Category category);
+        IResult Update(Category category);
+        IResult Delete(int categoryId);
     }
 }

@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 namespace DataAccess.Concretes.EntityFramework
 {
     //EFEntityRepositoryBase, IProductDal a diyor ki implement etmek istediklerin bende var EFProductDal da ondan impelement edildiğinii söylüyor
-    public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
+    public class EfProductDal : EfEntityRepositoryBase<Product, EczAppContext>, IProductDal
     {
         public List<ProductDetailDto> GetProductDetails()
         {
-            using (NorthwindContext context=new NorthwindContext())
+            using (EczAppContext context = new EczAppContext())
             {
                 var result = from p in context.Products
                              join c in context.Categories
@@ -25,9 +25,9 @@ namespace DataAccess.Concretes.EntityFramework
                              select new ProductDetailDto
                              {
                                  ProductId = p.ProductId,
-                                 ProductName=p.ProductName,
-                                 CategoryName=c.CategoryName,
-                                 UnitsInStock=p.UnitsInStock
+                                 ProductName = p.ProductName,
+                                 CategoryName = c.CategoryName,
+                                 UnitsInStock = p.UnitsInStock
                              };
                 return result.ToList();
             }

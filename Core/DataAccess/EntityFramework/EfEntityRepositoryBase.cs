@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,22 +36,28 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public TEntity Get(Expression<Func<TEntity, bool>> predicate,
+              Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+              bool enableTracking = true)
         {
-            //TEK DATA VERECEK BU METOT
             using (TContext context = new TContext())
             {
-                return context.Set<TEntity>().SingleOrDefault(filter);
-
-
+                IQueryable<TEntity> queryable = context.Set<TEntity>();
+                if (!enableTracking) queryable.AsNoTracking();
+                if (include is not null) queryable = include(queryable);
+                return queryable.SingleOrDefault(predicate);
             }
         }
-
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        // => c.productid = productid
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>>? predicate = null,
+                              Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool enableTracking = true)
         {
-            using (TContext context = new TContext())//İlgili tüm veriyi getir ama filtre vermişse o filtreyi uygula 
+            using (TContext context = new TContext())
             {
-                return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();// null ise ilk kısım değilse ikini kısım çalışır
+                IQueryable<TEntity> queryable = context.Set<TEntity>();
+                if (!enableTracking) queryable.AsNoTracking();
+                if (include is not null) queryable = include(queryable);
+                return queryable.ToList();
             }
         }
 

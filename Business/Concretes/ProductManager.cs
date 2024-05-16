@@ -3,6 +3,7 @@ using Business.BusinessAspect;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -88,8 +89,8 @@ namespace Business.Concretes
         public IResult Update(Product product)
         {
     
-            throw new NotImplementedException();
-
+            _productDal.Update(product);
+            return new SuccessResult(Messages.ProductUpdated);
         }
 
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)

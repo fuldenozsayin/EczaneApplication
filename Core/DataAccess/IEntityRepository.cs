@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,14 @@ namespace Core.DataAccess
 
     public interface IEntityRepository<T> where T:class,IEntity,new()
     {
-        List<T> GetAll(Expression<Func<T,bool>> filter=null);//linq gibi filtreeler yazabilmemizi sağlyor //filtre vermesen de olur
+        List<T> GetAll(Expression<Func<T, bool>>? predicate = null,
+                              Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool enableTracking = true);//linq gibi filtreeler yazabilmemizi sağlyor //filtre vermesen de olur
+        T? Get(Expression<Func<T, bool>> predicate,
+               Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+               bool enableTracking = true);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        T Get(Expression<Func<T, bool>> filter);
+
     }
 }
