@@ -1,0 +1,51 @@
+﻿using Business.Abstracts;
+using Core.Entities.Concrete;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OperationClaimsController : ControllerBase
+    {
+        IOperationClaimService _operationClaimService;
+        public OperationClaimsController(IOperationClaimService operationClaimService)
+        {
+            _operationClaimService = operationClaimService;
+        }
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var result = _operationClaimService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);//200 OK
+            }
+            return BadRequest(result);//400 Bad Request
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
+        {
+            var result = _operationClaimService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(OperationClaim operationClaim)
+        {
+            var result = _operationClaimService.Add(operationClaim);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+    }
+}
