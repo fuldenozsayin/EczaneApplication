@@ -12,6 +12,7 @@ using DataAccess.Concretes.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Core.Extensions;
+using Business.DependencyResolvers;
 
 public class Program
 {
@@ -47,6 +48,7 @@ public class Program
         // Add services to the container.
         //autofac, ninject, castleWindsor, StructureMp,LightInject, DryInject --IoC contanier//BÝZE AOP ÝMKANI SUNUYOR
         //AOP : Normalde bütün metotlarýmýzý loglamak isteriz. Normalde metotlarýn içine uzun uzun loglama yazarýz bunun yerine atribute olarak metodun baþýna [LogAspect] yazarýz böylece...
+        builder.Services.AddBusinessService();
         builder.Services.AddControllers();
         builder.Services.AddCors();
         builder.Services.AddSingleton<IProductService, ProductManager>();

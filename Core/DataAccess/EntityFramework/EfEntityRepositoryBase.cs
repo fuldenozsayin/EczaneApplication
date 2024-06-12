@@ -14,20 +14,16 @@ namespace Core.DataAccess.EntityFramework
     {
         public void Add(TEntity entity)
         {
-            //IDisposable pattern implementation of C#
             using (TContext context = new TContext())
             {
-                var addedEntity = context.Entry(entity);//git ve veri kaynağında benim gönderdiğim nesneyi eşleştir. (context. diye göstermemizin nedeni referansına ulaşabilmek için) //YANİ REFERANSI YAKALA
-                                                        //ama bu ekleme olacağı için hiçbir şeyle eşeleştiremeyecek.
-                addedEntity.State = EntityState.Added; //veri tabanına eklemek için //ASLINDA O EKLENECEK BİR NESNE
-                context.SaveChanges();//VE ŞİMDİ EKLE //buradki işlemleri pıt pıt yapar =)
-
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
             }
         }
 
         public void Delete(TEntity entity)
         {
-            //IDisposable pattern implementation of C#
             using (TContext context = new TContext())
             {
                 var deletedEntity = context.Entry(entity);
@@ -48,7 +44,7 @@ namespace Core.DataAccess.EntityFramework
                 return queryable.SingleOrDefault(predicate);
             }
         }
-        // => c.productid = productid
+
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>>? predicate = null,
                               Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool enableTracking = true)
         {

@@ -27,17 +27,17 @@ namespace Business.Concretes
         }
         //on before
 
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
-        [CacheRemoveAspect("IProductService.Get")]
+        //[CacheRemoveAspect("IProductService.Get")]
 
         public IResult Add(Product product)
         {
-            IResult result=BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
-            if (result!=null)
-            {
-                return result;
-            }
+            //IResult result=BusinessRules.Run(CheckIfProductNameExists(product.ProductName), CheckIfProductCountOfCategoryCorrect(product.CategoryId));
+            //if (result!=null)
+            //{
+            //    return result;
+            //}
             
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);

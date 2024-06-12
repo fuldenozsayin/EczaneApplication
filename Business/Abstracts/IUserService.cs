@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete;
+﻿using Business.Requests.User;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Entities.Concretes;
 using System;
@@ -17,8 +18,8 @@ namespace Business.Abstracts
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetById(int userId);
 
-        IResult Add(User user);
-        IResult Update(User user);
+        IDataResult<User> Add(CreateUserRequest request);
+        IResult Update(UpdateUserRequest user);
         IResult Delete(int userId);
     }
 }

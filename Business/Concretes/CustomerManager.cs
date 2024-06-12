@@ -1,4 +1,5 @@
-﻿using Business.Abstracts;
+﻿using AutoMapper;
+using Business.Abstracts;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
@@ -14,10 +15,12 @@ namespace Business.Concretes
     public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
+        IMapper _mapper;
 
-        public CustomerManager(ICustomerDal customerDal)
+        public CustomerManager(ICustomerDal customerDal,IMapper mapper)
         {
             customerDal = _customerDal;
+            _mapper = mapper;
         }
 
         public IResult Add(Customer customer)

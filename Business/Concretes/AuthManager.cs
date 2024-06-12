@@ -19,22 +19,23 @@ namespace Business.Concretes
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
-        {
-            byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            var user = new User
-            {
-                Email = userForRegisterDto.Email,
-                FirstName = userForRegisterDto.FirstName,
-                LastName = userForRegisterDto.LastName,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
-                
-            };
-            _userService.Add(user);
-            return new SuccessDataResult<User>(user, Messages.UserRegistered);
-        }
+        //public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        //{
+        //    byte[] passwordHash, passwordSalt;
+        //    HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+        //    var user = new User
+        //    {
+        //        Email = userForRegisterDto.Email,
+        //        FirstName = userForRegisterDto.FirstName,
+        //        LastName = userForRegisterDto.LastName,
+        //        PasswordHash = passwordHash,
+        //        PasswordSalt = passwordSalt
+
+        //    };
+
+        //    _userService.Add(user);
+        //    return new SuccessDataResult<User>(user, Messages.UserRegistered);
+        //}
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
@@ -66,6 +67,11 @@ namespace Business.Concretes
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+        }
+
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

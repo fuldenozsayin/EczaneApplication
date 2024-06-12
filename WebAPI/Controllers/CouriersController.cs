@@ -1,4 +1,5 @@
 ﻿using Business.Abstracts;
+using Business.Requests.Courier;
 using Core.Entities.Concrete;
 using Entities.Concretes;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +39,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Courier courier)
+        public IActionResult Add(CreateCourierRequest courier)
         {
             var result = _courierService.Add(courier);
             if (result.Success)

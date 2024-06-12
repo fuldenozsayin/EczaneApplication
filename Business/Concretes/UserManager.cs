@@ -1,5 +1,8 @@
-﻿using Business.Abstracts;
+﻿using AutoMapper;
+using Azure.Core;
+using Business.Abstracts;
 using Business.Constants;
+using Business.Requests.User;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
@@ -16,9 +19,10 @@ namespace Business.Concretes
     public class UserManager : IUserService
     {
         IUserDal _userDal;
-
-        public UserManager(IUserDal userDal)
+        IMapper _mapper;
+        public UserManager(IUserDal userDal,IMapper mapper)
         {
+            _mapper = mapper;
             _userDal = userDal;
         }
 
@@ -47,10 +51,11 @@ namespace Business.Concretes
             return new SuccessDataResult<User>(_userDal.Get(c => c.UserId == userId));
         }
 
-        public IResult Add(User user)
+        public IDataResult<User> Add(CreateUserRequest request)
         {
+            User user = _mapper.Map<User>(request);
             _userDal.Add(user);
-            return new SuccessResult(Messages.UserAdded);
+            return new SuccessDataResult<User>(user, Messages.UserAdded);
         }
 
         public IResult Delete(int userId)
@@ -59,12 +64,11 @@ namespace Business.Concretes
             return new Result(true, Messages.UserDeleted);
         }
 
-        public IResult Update(User user)
+        public IResult Update(UpdateUserRequest request)
         {
+            User user = _mapper.Map<User>(request);
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
-
-        
     }
 }

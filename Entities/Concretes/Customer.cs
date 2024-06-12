@@ -18,6 +18,6 @@ namespace Entities.Concretes
         public string NationalityId { get; set; }
         public string PhoneNumber { get; set; }
 
-        public virtual User User { get; set; }//virtual ezilebilir prop demek. İçerisinde başka bir nesne alabileceğini elirtiyoruz.
+        public virtual User User { get; set; }//virtual ezilebilir prop demek. İçerisinde başka bir nesne alabileceğini belirtiyoruz.
     }
 }

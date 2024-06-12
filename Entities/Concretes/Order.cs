@@ -17,8 +17,6 @@ namespace Entities.Concretes
 
         public DateTime OrderDate { get; set; }
         public string ShipCity { get; set; }
-
-        //?
         public virtual Customer Customer { get; set; }
         public virtual Receipt Receipt { get; set; }
 

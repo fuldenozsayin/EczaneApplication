@@ -1,4 +1,6 @@
-﻿using Core.Utilities.Results;
+﻿using Business.Requests.Courier;
+using Business.Responses.Courier;
+using Core.Utilities.Results;
 using Entities.Concretes;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,12 @@ namespace Business.Abstracts
 {
     public interface ICourierService
     {
-        IDataResult<List<Courier>> GetAll();
+        IDataResult<List<ListCourierResponse>> GetAll();
         IDataResult<Courier> GetById(int courierId);
 
-        IResult Add(Courier courier);
-        IResult Update(Courier courier);
-        IResult Delete(int courierId);
+        IResult Add(CreateCourierRequest request);
+        IResult Update(UpdateCourierRequest request);
+        IResult Delete(DeleteCourierRequest request
+            );
     }
 }

@@ -18,8 +18,6 @@ namespace Entities.Concretes
         public short UnitsInStock { get; set; }
         public string Description { get; set; }
 
-        
-
         public virtual Seller Seller { get; set; }
         public virtual Category Category { get; set; }
     }
